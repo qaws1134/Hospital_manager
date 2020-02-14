@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;service.D_clsif&apos; to &apos;D_clsifCommand&apos;&#x0D;&#x0A;- Original project: &apos;project&apos;&#x0D;&#x0A;- Original element: &apos;service.D_clsif&apos;&#x0D;&#x0A;- Renamed element: &apos;service.D_clsifCommand&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;D_clsif&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;service{D_clsif.java[D_clsif" matchStrategy="1" name="D_clsifCommand" qualified="false" references="true" similarDeclarations="false" stamp="1512749166239" textual="false" version="1.0"/>
+</session>

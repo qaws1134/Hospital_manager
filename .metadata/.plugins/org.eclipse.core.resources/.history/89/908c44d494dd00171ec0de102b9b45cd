@@ -1,0 +1,28 @@
+package service;
+
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import DAO.DAO;
+import DTO.DTO;
+
+public class D_clsifCommand implements BasicCommand {
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		DAO dao= new DAO();
+		ArrayList<DTO> D_clsif=dao.D_clsif();
+	/*	ArrayList<DTO> D_clsnea=dao.D_clsnea();
+		ArrayList<DTO> D_clswhy=dao.D_clswhy();
+		ArrayList<DTO> D_clsskn=dao.D_clsskn();
+		ArrayList<DTO> D_clseye=dao.D_clseye();
+		*/
+		request.setAttribute("D_clsif", D_clsif);
+	/*	request.setAttribute("D_clsnea", D_clsnea);
+		request.setAttribute("D_clswhy", D_clswhy);
+		request.setAttribute("D_clsskn", D_clsskn);
+		request.setAttribute("D_clseye", D_clseye);
+*/
+	}
+
+}

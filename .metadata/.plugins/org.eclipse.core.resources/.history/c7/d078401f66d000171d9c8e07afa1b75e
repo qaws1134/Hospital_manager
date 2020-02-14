@@ -1,0 +1,182 @@
+package DAO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import DTO.DTO;
+
+public class DAO {
+	
+	String driver="oracle.jdbc.driver.OracleDriver";
+	String url ="jdbc:oracle:thin:@localhost:1521:orcl";
+	String userid="dud";
+	String passwd="011869";
+
+	public DAO() {
+		try {
+			
+			Class.forName(driver);
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//환자 추가
+	public void P_insert(String _P_NAME, String _P_PERNUM, String _P_GENDER){
+
+		Connection con = null;
+		PreparedStatement pstmt =null;
+		
+		try {
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "dud", "011869");
+			String query="INSERT INTO PATIENT(P_NUM, P_NAME, P_PERNUM, P_GENDER) values(patient_seq.nextval,?,?,?)";
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, _P_NAME);
+			pstmt.setString(2, _P_PERNUM);
+			pstmt.setString(3, _P_GENDER);
+			int n =pstmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null)con.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	//의사 추가
+	public void D_insert(String _D_NAME, String _D_PERNUM, String _D_GENDER,String _D_CLSNUM){
+		
+
+		Connection con = null;
+		PreparedStatement pstmt =null;
+		
+		try {
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "dud", "011869");
+			String query="INSERT INTO PATIENT(D_NUM, D_NAME, D_PERNUM, D_GENDER, D_CLSNUM) values(patient_seq.nextval,?,?,?,?)";
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, _D_NAME);
+			pstmt.setInt(2, Integer.parseInt(_D_CLSNUM));
+			pstmt.setString(3, _D_PERNUM);
+			pstmt.setString(4, _D_GENDER);
+			
+			int n = pstmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null)con.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	//리스트 보기
+	public ArrayList<DTO> P_list(){
+		
+		ArrayList<DTO> list = new ArrayList<DTO>();
+		Connection con = null;
+		PreparedStatement pstmt =null;
+		ResultSet rs =null;
+		
+		try {
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "dud", "011869");
+			String query = "select P_NUM, P_NAME, P_PERNUM, P_GENDER from PATIENT ORDER BY P_NUM ASC";
+			pstmt =con.prepareStatement(query);
+			
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				int p_num =rs.getInt("P_NUM");
+				String p_name=rs.getString("P_NAME");
+				String p_pernum=rs.getString("P_PERNUM");
+				String p_gender=rs.getString("P_GENDER");
+			
+				DTO data = new DTO();
+				data.setP_NUM(p_num);
+				data.setP_NAME(p_name);
+				data.setP_PERNUM(p_pernum);
+				data.setP_GENDER(p_gender);
+
+				list.add(data);
+				}
+			
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					if(rs!=null)rs.close();
+					if(pstmt!=null) pstmt.close();
+					if(con!=null)con.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+			}
+		}
+			return list;
+	}
+	public ArrayList<DTO> D_list(){
+		
+		ArrayList<DTO> list = new ArrayList<DTO>();
+		Connection con = null;
+		PreparedStatement pstmt =null;
+		ResultSet rs =null;
+		
+		try {
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "dud", "011869");
+			String query = "select D_NUM, D_NAME, D_PERNUM, D_GENDER D_CLSNUM from DOCTOR ORDER BY D_NUM ASC";
+			pstmt =con.prepareStatement(query);
+			
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				int d_num =rs.getInt("D_NUM");
+				String d_name=rs.getString("D_NAME");
+				String d_pernum=rs.getString("D_PERNUM");
+				String d_gender=rs.getString("D_GENDER");
+				int d_clsnum=rs.getInt("D_CLSNUM");
+						
+				DTO data = new DTO();
+				data.setD_NUM(d_num);
+				data.setD_NAME(d_name);
+				data.setD_PERNUM(d_pernum);
+				data.setD_GENDER(d_gender);
+				data.setD_CLSNUM(d_clsnum);
+
+				list.add(data);
+				}
+			
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					if(rs!=null)rs.close();
+					if(pstmt!=null) pstmt.close();
+					if(con!=null)con.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+			}
+		}
+			return list;
+	}
+
+	
+	
+}

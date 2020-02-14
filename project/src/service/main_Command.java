@@ -1,0 +1,25 @@
+package service;
+
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import DAO.DAO;
+import DTO.DTO;
+
+public class mainCommand implements BasicCommand {
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		DAO dao= new DAO();
+		ArrayList<DTO> P_list=dao.P_list();
+		ArrayList<DTO> D_list=dao.D_list();
+		ArrayList<DTO> D_inshow=dao.D_inshow();
+		ArrayList<DTO> P_inshow=dao.P_inshow();
+		request.setAttribute("P_list", P_list);
+		request.setAttribute("D_list", D_list);
+		request.setAttribute("D_inshow", D_inshow);
+		request.setAttribute("P_inshow", P_inshow);
+
+	}
+
+}

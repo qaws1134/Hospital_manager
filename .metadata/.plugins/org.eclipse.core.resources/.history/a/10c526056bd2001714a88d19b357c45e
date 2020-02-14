@@ -1,0 +1,22 @@
+package service;
+
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import DAO.DAO;
+import DTO.DTO;
+
+public class SearchCommand implements BasicCommand{
+	
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		String _searchName = request.getParameter("searchName");
+		String _searchValue = request.getParameter("searchValue");
+		DAO dao = new DAO();
+		ArrayList<DTO> list = dao.search(_searchName, _searchValue);
+		request.setAttribute("list", list);
+		
+	}
+
+}
